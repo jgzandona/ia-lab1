@@ -156,3 +156,31 @@ def gera_caminho(arvore, nodo_final):
         lista_acoes.append(atual.acao)
         atual = atual.pai
     return lista_acoes.reverse()
+
+def ondeEsta(estado, peca):
+    return estado.index(str(peca))
+
+
+def ondeDeveriaEstar(peca):
+    return peca-1
+
+
+def hammingDist(estado):
+    foraLugar = 0
+    for peca in range(1, 9):
+        if ondeEsta(estado, peca) != ondeDeveriaEstar(peca):
+            foraLugar = foraLugar + 1
+    return foraLugar
+
+
+def manhattanDist(estado):
+    distAcumulada = 0
+    for peca in range(1, 9):
+        esta = ondeEsta(estado, peca)
+        deveriaEstar = ondeDeveriaEstar(peca)
+        # calculo da distancia de cada peça
+        distPeca = abs(esta//3 - deveriaEstar//3) + \
+            abs(esta % 3 - deveriaEstar % 3)
+        distAcumulada = distAcumulada + distPeca
+    return distAcumulada
+
